@@ -1,0 +1,10 @@
+.instruction {
+    width: 1200px;
+    margin: 150px auto;
+}
+
+.h1 {
+    padding: 50px;
+    font-size: 40px;
+    font-weight: bold;
+}

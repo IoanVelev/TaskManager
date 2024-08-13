@@ -1,0 +1,27 @@
+.register-div{
+    width: 700px;
+    height: 50vh;
+    margin: 50px auto;
+    align-items: center;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 30px;
+    border-color: darkgrey;
+}
+
+.register-h1 {
+    display: flex;
+    font-size: 30px;
+    font-weight: bold;
+    justify-content: center;
+}
+
+.register-form {
+    width: fit-content;
+    margin: auto;
+    padding: 70px;
+}
+
+.register-btn{
+    margin-top: 20px;
+}

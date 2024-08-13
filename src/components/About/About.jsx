@@ -2,9 +2,20 @@
 "use client";
 
 import { Accordion } from "flowbite-react";
+import { Instruction } from "./Instruction/Instruction";
+import styles from './Instruction/Instruction.module.css';
 
 export function About() {
   return (
+    <>
+    
+    
+    <div className={styles.instruction}>
+      <h1 className={styles.h1}>How to use TaskManager:</h1>
+    <Instruction />
+    </div>
+
+    <div className="accordion">
     <Accordion collapseAll>
       <Accordion.Panel>
         <Accordion.Title>What is Flowbite?</Accordion.Title>
@@ -73,5 +84,8 @@ export function About() {
         </Accordion.Content>
       </Accordion.Panel>
     </Accordion>
+    </div>
+    </>
+    
   );
 }
