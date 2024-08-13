@@ -2,6 +2,7 @@
 "use client";
 
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
+import { Link } from "react-router-dom";
 
 export function NavBar() {
   return (
@@ -30,13 +31,13 @@ export function NavBar() {
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        <Navbar.Link href="#" active>
+        <Navbar.Link as={Link} to={'/'} active>
           Home
         </Navbar.Link>
-        <Navbar.Link href="#">About</Navbar.Link>
-        <Navbar.Link href="#">Services</Navbar.Link>
-        <Navbar.Link href="#">Pricing</Navbar.Link>
-        <Navbar.Link href="#">Contact</Navbar.Link>
+        <Navbar.Link as={Link} to={'/about'}>About</Navbar.Link>
+        <Navbar.Link as={Link} to={'/login'}>Login</Navbar.Link>
+        <Navbar.Link as={Link} to={'/register'}>Register</Navbar.Link>
+        <Navbar.Link as={Link} to={'/task/create'}>Create task</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
     </>

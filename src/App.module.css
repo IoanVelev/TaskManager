@@ -1,0 +1,8 @@
+.task-list {
+    display: flex;
+    width: 1200px;
+    margin: 50px auto;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+}
