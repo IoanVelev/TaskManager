@@ -1,10 +1,38 @@
 "use client";
 
 import { Button, Label, TextInput } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
 import styles from "../../components/Form.module.css";
+import { useState } from "react";
 
 export function Register() {
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const signUpHandler = (e) => {
+    e.preventDefault();
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log(user);
+      if (user) {
+        navigate("/login");
+      }
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    });
+  }
+
+  const emailChangeHanlder = (event) => setEmail(event.target.value);
+  const passwordChangleHandler = (event) => setPassword(event.target.value);
+
   return (
     <>
     <div className={styles['form-div']}>
@@ -19,13 +47,14 @@ export function Register() {
             placeholder="name@flowbite.com"
             required
             shadow
+            onChange={emailChangeHanlder}
           />
         </div>
         <div>
           <div className="mb-2 block">
             <Label htmlFor="password2" value="Your password" />
           </div>
-          <TextInput id="password2" type="password" required shadow />
+          <TextInput id="password2" type="password" required shadow onChange={passwordChangleHandler}/>
         </div>
         <div>
           <div className="mb-2 block">
@@ -34,16 +63,14 @@ export function Register() {
           <TextInput id="repeat-password" type="password" required shadow />
         </div>
         
-        <Button className={styles['btn-submit']} type="submit">Register new account</Button>
+        <Button className={styles['btn-submit']} type="submit" onClick={signUpHandler}>Register new account</Button>
 
         <p>
           Have an account?
           <Link as={Link} to={'/login'} className={styles["change-path-link"]}> Sign in</Link>
         </p>
       </form>
-      
     </div>
-    
     </>
   );
 }
