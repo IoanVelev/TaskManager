@@ -1,13 +1,13 @@
 "use client";
 
 import { Button, Label, TextInput } from "flowbite-react";
-import { Link } from "react-router-dom";
 import styles from "../../components/Form.module.css";
+import { Link } from "react-router-dom";
 
-export function Register() {
+export function Login() {
   return (
-    <div className={styles['form-div']}>
-      <form className={styles['inner-form']}>
+    <div className={styles["form-div"]}>
+      <form className={styles["inner-form"]}>
         <div>
           <div className="mb-2 block">
             <Label htmlFor="email2" value="Your email" />
@@ -26,18 +26,13 @@ export function Register() {
           </div>
           <TextInput id="password2" type="password" required shadow />
         </div>
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="repeat-password" value="Repeat password" />
-          </div>
-          <TextInput id="repeat-password" type="password" required shadow />
-        </div>
-        
-        <Button className={styles['btn-submit']} type="submit">Register new account</Button>
 
+        <Button className={styles["btn-submit"]} type="submit">
+          Login
+        </Button>
         <p>
-          Have an account?
-          <Link as={Link} to={'/login'} className={styles["change-path-link"]}> Sign in</Link>
+          Don't have an account?
+          <Link as={Link} to={'/register'} className={styles["change-path-link"]}> Sign up</Link>
         </p>
       </form>
     </div>

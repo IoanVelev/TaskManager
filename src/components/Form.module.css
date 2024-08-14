@@ -1,4 +1,4 @@
-.register-div{
+.form-div{
     width: 700px;
     height: 50vh;
     margin: 50px auto;
@@ -9,19 +9,17 @@
     border-color: darkgrey;
 }
 
-.register-h1 {
-    display: flex;
-    font-size: 30px;
-    font-weight: bold;
-    justify-content: center;
-}
-
-.register-form {
+.inner-form {
     width: fit-content;
     margin: auto;
     padding: 70px;
 }
 
-.register-btn{
-    margin-top: 20px;
+.btn-submit{
+    margin: 30px auto;
+}
+
+.change-path-link {
+    color: darkcyan;
+    font-weight: bold;
 }
