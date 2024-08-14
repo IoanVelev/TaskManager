@@ -6,6 +6,7 @@ import styles from "../../components/Form.module.css";
 
 export function Register() {
   return (
+    <>
     <div className={styles['form-div']}>
       <form className={styles['inner-form']}>
         <div>
@@ -40,6 +41,9 @@ export function Register() {
           <Link as={Link} to={'/login'} className={styles["change-path-link"]}> Sign in</Link>
         </p>
       </form>
+      
     </div>
+    
+    </>
   );
 }
