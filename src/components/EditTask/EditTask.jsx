@@ -1,7 +1,9 @@
 "use client";
 import {
     getDoc,
-    doc
+    doc,
+    collection,
+    updateDoc
 } from "firebase/firestore";
 import { Link, useParams } from "react-router-dom";
 import { db } from '../../firebase/firebase';
@@ -15,23 +17,43 @@ import styles from "../CreateTask/CreateTask.module.css";
 import { useState, useEffect } from "react";
 
 export function EditTask() {
+    const dbref = collection(db, 'tasks');
     const { taskId } = useParams();
     const [data, setData] = useState({});
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [isImportant, setIsImportant] = useState(false);
 
-    const update = async () => {
+
+    const fetch = async () => {
         const docRef = doc(db, 'tasks', taskId);
         const docSnap = await getDoc(docRef);
     
         if (docSnap.exists()) {
             const taskData = docSnap.data();
-            setData(taskData);
             console.log(taskData);
-      }
+            
+            setData(taskData);
+            setTitle(taskData.title);
+            setDescription(taskData.description);
+            setIsImportant(taskData.isImportant);
+        }
+      };
+    
+      useEffect(() => {
+        fetch();
+      }, []);
+
+    const update = async () => {
+        const updateRef = doc(dbref, taskId);
+
+       try {
+        const docSnap = await updateDoc(updateRef, {title, description, isImportant});
+       } catch (error) {
+        alert(error);
+       }
     
     }
-    useEffect(() => {
-        update();
-    }, []);
 
   return (
     <div className={styles["form-div"]}>
@@ -47,7 +69,7 @@ export function EditTask() {
             required
             shadow
             defaultValue={data.title}
-            onChange={(e) => setData(e.target.value)}
+            onChange={(e) => setTitle(e.target.value)}
           />
         </div>
         <div className="max-w-md">
@@ -60,7 +82,7 @@ export function EditTask() {
             required
             rows={4}
             defaultValue={data.description}
-            onChange={(e) => setData(e.target.value)}
+            onChange={(e) => setDescription(e.target.value)}
           />
         </div>
         <div className={styles['check-box']}>
@@ -68,7 +90,7 @@ export function EditTask() {
         type="checkbox"
         id="checkbox"
         defaultChecked={data.isImportant}
-        onChange={(e) => setData(e.target.checked)}
+        onChange={(e) => setIsImportant(e.target.checked)}
       />
       <label className={styles['check-text']} htmlFor="checkbox">Mark as important </label>
       </div>
