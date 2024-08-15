@@ -6,7 +6,7 @@ import errStyles from "../../components/ErrorMessage.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import auth from "../../firebase";
+import { auth } from "../../firebase";
 
 export function Login() {
   const navigate = useNavigate();
@@ -58,7 +58,7 @@ export function Login() {
           <TextInput id="password2" type="password" required shadow onChange={passwordChangleHandler} />
         </div>
 
-        <Button className={styles["btn-submit"]} type="submit" onSubmit={signInHandler}>
+        <Button className={styles["btn-submit"]} type="submit" onClick={signInHandler}>
           Login
         </Button>
 
