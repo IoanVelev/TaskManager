@@ -1,26 +1,27 @@
 "use client";
 
 import { Button, Label, TextInput } from "flowbite-react";
-import { Link, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import styles from "../../components/Form.module.css";
 import errStyles from "../../components/ErrorMessage.module.css";
 import { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase/firebase";
+import { useAuth } from "../../contexts";
+import { doCreateUserWithEmailAndPassword } from "../../firebase/auth";
 
 export function Register() {
   const navigate = useNavigate();
+  const { userLoggedIn } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const signUpHandler = (e) => {
-    e.preventDefault();
-    createUserWithEmailAndPassword(auth, email, password)
+    doCreateUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log(user);
       if (user) {
         navigate("/login");
       }
@@ -37,6 +38,7 @@ export function Register() {
 
   return (
     <>
+    {userLoggedIn && (<Navigate to={'/'} replace={true}/>)}
     <div className={styles['form-div']}>
       <form className={styles['inner-form']}>
         <div>
@@ -65,7 +67,7 @@ export function Register() {
           <TextInput id="repeat-password" type="password" required shadow />
         </div>
         
-        <Button className={styles['btn-submit']} type="submit" onClick={signUpHandler}>Register new account</Button>
+        <Button className={styles['btn-submit']} type="button" onClick={signUpHandler}>Register new account</Button>
         {errorMessage ? <p className={errStyles['register-err']}>{errorMessage}</p> : ""}
 
         <p>
