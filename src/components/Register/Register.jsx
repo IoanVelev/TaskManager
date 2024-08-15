@@ -6,7 +6,7 @@ import styles from "../../components/Form.module.css";
 import errStyles from "../../components/ErrorMessage.module.css";
 import { useState } from "react";
 import { useAuth } from "../../contexts";
-import { doCreateUserWithEmailAndPassword } from "../../firebase/auth";
+import { doCreateUserWithEmailAndPassword, doSignOut } from "../../firebase/auth";
 
 export function Register() {
   const navigate = useNavigate();
@@ -16,22 +16,19 @@ export function Register() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const signUpHandler = (e) => {
-    doCreateUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        if (user) {
-          navigate("/login");
-        }
-      })
-      .catch((error) => {
-        let message = error.code.split("/")[1];
+  const signUpHandler = async () => {
+    try {
+      await doCreateUserWithEmailAndPassword(email, password);
+      await doSignOut()
+    navigate("/login");
+    } catch (error) {
+      let message = error.code.split("/")[1];
         let editedMessage = message
           .split("-")
           .map((x) => x.toUpperCase())
           .join(" ");
         setErrorMessage(editedMessage);
-      });
+    }
   };
 
   const emailChangeHanlder = (event) => setEmail(event.target.value);

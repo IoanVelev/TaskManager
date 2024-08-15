@@ -17,12 +17,11 @@ export function Login() {
   const [errorMessage, setErrorMessage] = useState("");
 
 
-  const signInHandler = (e) => {
-    //e.preventDefault();
+  const signInHandler = () => {
     
       doSignInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
+      .then(() => {
+        //const user = userCredential.user;
       })
       .catch((error) => {
         let message = error.code.split("/")[1];

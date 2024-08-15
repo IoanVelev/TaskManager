@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { auth } from "../firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = React.createContext();
 
@@ -9,6 +10,7 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
+  const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -25,6 +27,8 @@ export function AuthProvider({ children }) {
     } else {
       setCurrentUser(null);
       setUserLoggedIn(false);
+      navigate('/login');
+      
     }
     setLoading(false);
   }

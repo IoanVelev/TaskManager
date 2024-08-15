@@ -1,14 +1,9 @@
 "use client";
 import {
-    collection,
     getDoc,
-    deleteDoc,
-    doc,
-    updateDoc,
-    getDocs,
-    addDoc
+    doc
 } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { db } from '../../firebase/firebase';
 import {
   Button,
@@ -16,24 +11,27 @@ import {
   TextInput,
   Textarea,
 } from "flowbite-react";
-import styles from "./CreateTask.module.css";
-import { useAuth } from "../../contexts";
-import { useState } from "react";
+import styles from "../CreateTask/CreateTask.module.css";
+import { useState, useEffect } from "react";
 
-export function CreateTask() {
-    const navigate = useNavigate();
-    const { currentUser } = useAuth();
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    let [isImportant, setIsImportant] = useState(false);
-    const currentUserId = currentUser.uid
+export function EditTask() {
+    const { taskId } = useParams();
+    const [data, setData] = useState({});
 
-    const dbref = collection(db, 'tasks');
-
-    const addTask = async () => {
-        const addData = await addDoc(dbref, {title, description, isImportant, ownerId: currentUserId});
-        navigate('/');
+    const update = async () => {
+        const docRef = doc(db, 'tasks', taskId);
+        const docSnap = await getDoc(docRef);
+    
+        if (docSnap.exists()) {
+            const taskData = docSnap.data();
+            setData(taskData);
+            console.log(taskData);
+      }
+    
     }
+    useEffect(() => {
+        update();
+    }, []);
 
   return (
     <div className={styles["form-div"]}>
@@ -48,7 +46,8 @@ export function CreateTask() {
             type="text"
             required
             shadow
-            onChange={(e) => setTitle(e.target.value)}
+            defaultValue={data.title}
+            onChange={(e) => setData(e.target.value)}
           />
         </div>
         <div className="max-w-md">
@@ -60,22 +59,28 @@ export function CreateTask() {
             placeholder="e.g.Watch react tutorial"
             required
             rows={4}
-            onChange={(e) => setDescription(e.target.value)}
+            defaultValue={data.description}
+            onChange={(e) => setData(e.target.value)}
           />
         </div>
         <div className={styles['check-box']}>
         <input
         type="checkbox"
         id="checkbox"
-        checked={isImportant}
-        onChange={() => setIsImportant(!isImportant)}
+        defaultChecked={data.isImportant}
+        onChange={(e) => setData(e.target.checked)}
       />
       <label className={styles['check-text']} htmlFor="checkbox">Mark as important </label>
       </div>
-        <Button className={styles["add-btn"]} type="button" onClick={addTask}>
-          Add task
+        <Button className={styles["add-btn"]}
+         type="button"
+         onClick={update} 
+         as={Link} 
+         to={'/'}
+         >
+          Edit task
         </Button>
       </form>
     </div>
-  );
+  )
 }

@@ -5,14 +5,20 @@ import { getDocs, collection } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../contexts";
+
+
 export function TaskCard() {
   const dbref = collection(db, "tasks");
   const [data, setData] = useState([]);
-
+  const { currentUser } = useAuth();
+  
   const fetch = async () => {
     const snapshot = await getDocs(dbref);
     const fetchData = snapshot.docs.map((doc => ({id: doc.id, ...doc.data()})));
-    setData(fetchData);
+    const filteredData = fetchData.filter(({ ownerId }) => ownerId == currentUser.uid);
+   
+    setData(filteredData);
   };
 
   useEffect(() => {
