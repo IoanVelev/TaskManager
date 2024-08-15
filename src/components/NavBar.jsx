@@ -8,7 +8,6 @@ import { doSignOut } from "../firebase/auth";
 import styles from "../App.module.css"
 
 export function NavBar() {
-  const navigate = useNavigate();
   const { userLoggedIn } = useAuth();
   
   return (
@@ -28,11 +27,11 @@ export function NavBar() {
             <span className="block text-sm">Bonnie Green</span>
             <span className="block truncate text-sm font-medium">name@flowbite.com</span>
           </Dropdown.Header>
-          <Dropdown.Item>Dashboard</Dropdown.Item>
-          <Dropdown.Item>Settings</Dropdown.Item>
-          <Dropdown.Item>Earnings</Dropdown.Item>
+          <Dropdown.Item as={Link} to={'/dashboard'}>Dashboard</Dropdown.Item>
+          <Dropdown.Item as={Link} to={'/tasks/important'}>Important</Dropdown.Item>
+          <Dropdown.Item as={Link} to={'/trash'}>Trash</Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item>Sign out</Dropdown.Item>
+          <Dropdown.Item as={Link} to={'/logout'}>Sign out</Dropdown.Item>
         </Dropdown>
         <Navbar.Toggle />
       </div>
