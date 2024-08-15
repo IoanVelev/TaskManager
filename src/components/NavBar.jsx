@@ -41,8 +41,11 @@ export function NavBar() {
           Home
         </Navbar.Link>
         <Navbar.Link as={Link} to={'/about'}>About</Navbar.Link>
-        {userLoggedIn ?  
+        {userLoggedIn ? 
+        <>
         <Navbar.Link as={Link} to={'/logout'}>Logout</Navbar.Link>
+        <Navbar.Link as={Link} to={'/task/create'}>Create task</Navbar.Link>
+        </> 
         :
         <>
         <Navbar.Link as={Link} to={'/login'}>Login</Navbar.Link>
@@ -50,7 +53,7 @@ export function NavBar() {
         </>
         }
         
-        <Navbar.Link as={Link} to={'/task/create'}>Create task</Navbar.Link>
+        
       </Navbar.Collapse>
     </Navbar>
     </>
