@@ -1,0 +1,5 @@
+.register-err, .login-err {
+    color: red;
+    font-weight: 700;
+    text-align: center;
+}

@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import styles from "../../components/Form.module.css";
+import errStyles from "../../components/ErrorMessage.module.css";
 import { useState } from "react";
 
 export function Register() {
@@ -12,6 +13,7 @@ export function Register() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const signUpHandler = (e) => {
     e.preventDefault();
@@ -24,9 +26,9 @@ export function Register() {
       }
     })
     .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+      let message = error.code.split("/")[1];
+      let editedMessage = message.split("-").map(x => x.toUpperCase()).join(" ");
+      setErrorMessage(editedMessage);
     });
   }
 
@@ -64,10 +66,11 @@ export function Register() {
         </div>
         
         <Button className={styles['btn-submit']} type="submit" onClick={signUpHandler}>Register new account</Button>
+        {errorMessage ? <p className={errStyles['register-err']}>{errorMessage}</p> : ""}
 
         <p>
           Have an account?
-          <Link as={Link} to={'/login'} className={styles["change-path-link"]}> Sign in</Link>
+          <Link to={'/login'} className={styles["change-path-link"]}> Sign in</Link>
         </p>
       </form>
     </div>
