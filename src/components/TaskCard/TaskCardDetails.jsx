@@ -4,10 +4,11 @@ import { Button, Card, Dropdown } from "flowbite-react";
 import { doc, getDoc, collection, deleteDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import { useAuth } from "../../contexts";
 export function TaskCardDetails() {
+ const { userLoggedIn } = useAuth();
   const { taskId } = useParams();
   const [data, setData] = useState([]);
   const navigate = useNavigate('/');
@@ -39,7 +40,8 @@ export function TaskCardDetails() {
 
   return (
     <>
-          <Card key={data.id}>
+    { userLoggedIn ? 
+    <Card key={data.id}>
             <div className="flex justify-end px-4 pt-4">
               <Dropdown inline label="">
                 <Dropdown.Item>
@@ -99,6 +101,10 @@ export function TaskCardDetails() {
               </div>
             </div>
           </Card>
+          :
+          <Navigate to={'/login'}/>
+          }
+          
     </>
   );
 }

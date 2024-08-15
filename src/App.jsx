@@ -21,10 +21,10 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
-        <Route path="/task/create" element={<CreateTask />} />
+        <Route path="/task/create" element={<CreateTask />}/>
         <Route path="/task/edit/:taskId" element={<EditTask />} />
-        <Route path="/task/details/:taskId" element={<TaskCardDetails />} />
-        <Route path="/logout" element={<Logout />} />
+        <Route path="/task/details/:taskId" element={<TaskCardDetails />}/>
+        <Route path="/logout" element={<Logout />}/>
       </Routes>
       </AuthProvider>
     </>
