@@ -1,0 +1,26 @@
+.form-div {
+  border: 3px solid darkgrey;
+  margin: auto;
+  width: 50%;
+  height: 60vh;
+  padding: 10px;
+}
+
+.form-element {
+    display: flexbox;
+    margin: 20px auto;
+    padding: 30px;
+}
+
+.add-btn {
+    display: flex;
+    margin: 100px auto;
+}
+
+.date-picker {
+    padding-top: 20px;
+}
+
+.check-box {
+    padding-top: 20px;
+}
