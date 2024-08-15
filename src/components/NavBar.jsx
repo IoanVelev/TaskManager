@@ -1,10 +1,16 @@
 
 "use client";
 
-import { Avatar, Dropdown, Navbar } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Button, Avatar, Dropdown, Navbar } from "flowbite-react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts";
+import { doSignOut } from "../firebase/auth";
+import styles from "../App.module.css"
 
 export function NavBar() {
+  const navigate = useNavigate();
+  const { userLoggedIn } = useAuth();
+  
   return (
     <>
     <Navbar fluid rounded>
@@ -35,8 +41,15 @@ export function NavBar() {
           Home
         </Navbar.Link>
         <Navbar.Link as={Link} to={'/about'}>About</Navbar.Link>
+        {userLoggedIn ?  
+        <Navbar.Link as={Link} to={'/logout'}>Logout</Navbar.Link>
+        :
+        <>
         <Navbar.Link as={Link} to={'/login'}>Login</Navbar.Link>
         <Navbar.Link as={Link} to={'/register'}>Register</Navbar.Link>
+        </>
+        }
+        
         <Navbar.Link as={Link} to={'/task/create'}>Create task</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
