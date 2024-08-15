@@ -7,6 +7,6 @@ export default function Logout() {
     const navigate = useNavigate();
     doSignOut()
     .then(() => {
-        navigate('/login')
-    })
+        navigate('/login');
+    });
 }
