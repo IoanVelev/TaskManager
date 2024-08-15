@@ -20,6 +20,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
         <Route path="/task/create" element={<CreateTask />} />
+        <Route path="/task/details/:taskId" element={<CreateTask />} />
         <Route path="/logout" element={<Logout />} />
       </Routes>
       </AuthProvider>
