@@ -6,6 +6,7 @@ import { Login } from "./components/Login/Login";
 import Home from "./components/Home/Home";
 import { AuthProvider } from "./contexts";
 import Logout from "./components/Logout";
+import { CreateTask } from "./components/CreateTask.jsx/CreateTask";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
+        <Route path="/task/create" element={<CreateTask />} />
         <Route path="/logout" element={<Logout />} />
       </Routes>
       </AuthProvider>
